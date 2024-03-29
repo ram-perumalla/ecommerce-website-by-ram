@@ -1,0 +1,73 @@
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Order Now</title>
+	<link rel="stylesheet" href="Google Sheet.css">
+  </head>
+  <body>
+	<div class="container">
+	  <h2>Order Now</h2>
+	  <form action="https://script.google.com/macros/s/AKfycbyGCQAs0ucEh1xP7srlkAm8uwN7WsY8VYAPdJeiTXjjd2foNHLdzL_Lv36U3Fz8G7o/exec" method="post" id="order-form">
+		<label for="your-name">Name:</label>
+		<input type="text" name="your-name" id="your-name" placeholder="Enter your name" required>
+		<label for="your-number">Phone Number:</label>
+		<input type="tel" name="your-number" id="your-number" placeholder="Enter your phone number" required>
+		<label for="your-email">Email:</label>
+		<input type="email" name="your-email" id="your-email" placeholder="Enter your email" required>
+		<label for="product">Product Name:</label>
+		<input type="text" name="product" id="product" placeholder="Enter product name" required>
+		<label for="quantity">Quantity:</label>
+		<input type="number" name="quantity" id="quantity" placeholder="Enter desired quantity" required>
+		<label for="payment-method">Payment Method:</label>
+		<select name="payment-method" id="payment-method" required>
+		  <option value="cod">Cash on Delivery (COD)</option>
+		  <option value="online">Online Payment</option>
+		</select>
+		<div id="online-payment" style="display: none;">
+		  <p>Click the button below to generate a secure payment link:</p>
+		  <button type="button" id="generate-payment-link">Generate Payment Link</button>
+		</div>
+		<textarea name="address" id="address" placeholder="Enter your delivery address" required></textarea>
+		<input type="submit" value="Order Now" id="submit">
+	  </form>
+	  <script>
+		  document.getElementById("order-form").addEventListener("submit", function(event) {
+			  event.preventDefault();
+			  var paymentMethod = document.getElementById("payment-method").value;
+			  if (paymentMethod === "online") {
+				  // Redirect to Rezer Pay link
+				  window.location.href = "https://rzp.io/i/CmGiAVq";
+			  } else if (paymentMethod === "cod") {
+				  // Handle Cash on Delivery
+				  handleCashOnDelivery(this);
+			  }
+		  });
+	  
+		  function handleCashOnDelivery(form) {
+			  // Submit the form data to your backend for processing
+			  var formData = new FormData(form);
+			  fetch(form.action, {
+				  method: "POST",
+				  body: formData
+			  })
+			  .then(response => {
+				  if (!response.ok) {
+					  throw new Error("Network response was not ok");
+				  }
+				  console.log("Form submitted successfully!");
+				  // Redirect to a thank you page or any other page
+				  window.location.href = "thank_you_page.html";
+			  })
+			  .catch(error => console.error("Error submitting form:", error));
+		  }
+		  
+		  document.getElementById("generate-payment-link").addEventListener("click", function() {
+			  // Handle generating payment link
+			  // You can add your logic here to generate the payment link
+			  alert("Payment link generation logic goes here");
+		  });
+	  </script>
+	</div>
+  </body>
+  </html>
+  
