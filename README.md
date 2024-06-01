@@ -1,2 +1,2 @@
-# GreenGrocer
+# Grocery Mart
  organic fresh foods
