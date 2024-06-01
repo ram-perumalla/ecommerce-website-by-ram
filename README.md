@@ -1,2 +1,2 @@
 # Grocery Mart
- organic fresh foods
+## Fresh Organic Foods
